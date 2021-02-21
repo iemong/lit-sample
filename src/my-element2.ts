@@ -1,4 +1,4 @@
-import {LitElement, html} from 'lit-element';
+import {LitElement, html, css} from 'lit-element';
 
 class MyElement2 extends LitElement {
   protected message: string;
@@ -20,6 +20,27 @@ class MyElement2 extends LitElement {
     };
   }
 
+  static get styles() {
+    return css`
+      p {
+        font-family: Roboto;
+        font-size: 16px;
+        font-weight: 500;
+      }
+      .red {
+        color: red;
+      }
+      .blue {
+        color: blue;
+      }
+    `;
+  }
+
+  clickHandler(event: Event) {
+    console.log(event.target);
+    this.myBool = !this.myBool;
+  }
+
   render() {
     return html`
       <p>${this.message}</p>
@@ -29,6 +50,8 @@ class MyElement2 extends LitElement {
       ${this.myBool
         ? html`<p>Render some HTML if myBool is true</p>`
         : html`<p>Render some other HTML if myBool is false</p>`}
+      <button @click=${this.clickHandler}>Click</button>
+      <p class="${this.myBool ? 'red' : 'blue' }">styled paragraph</p>
     `;
   }
 }
